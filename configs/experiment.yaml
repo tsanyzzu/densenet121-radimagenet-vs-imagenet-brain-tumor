@@ -1,0 +1,53 @@
+experiment_name: "densenet121_radimagenet-vs-imagenet_brain_tumor"
+
+factors:
+  pretrained_sources:
+    - "imagenet"
+    - "radimagenet"
+  strategies:
+    - "partial_1block"
+    - "partial_2block"
+    - "full_finetuning"
+  seeds:
+    - 42
+    - 43
+    - 44
+    - 45
+    - 46
+
+# hyperparameters
+training:
+  optimizer: "adamw"
+  lr_backbone: 1.0e-4       
+  lr_classifier: 1.0e-3     
+  weight_decay: 0.01        
+  scheduler: "none"         
+  gradient_clip_norm: null  
+  loss_function: "cross_entropy"
+  batch_size: 32            
+  max_epochs: 50            
+  mixed_precision: false    
+
+# Early stopping & checkpoint selection
+early_stopping:
+  enabled: true
+  monitor: "val_macro_f1"
+  mode: "max"
+  patience: 8               
+  min_delta: 1.0e-4         
+  tie_breaker: "earliest"   
+
+# Reproducibility settings
+reproducibility:
+  deterministic_algorithms: true
+  cudnn_benchmark: false
+
+# Convergence tracking
+convergence:
+  target_val_macro_f1_threshold: null 
+
+# Output management
+outputs:
+  base_dir: "outputs"
+  overwrite_existing_run: false
+

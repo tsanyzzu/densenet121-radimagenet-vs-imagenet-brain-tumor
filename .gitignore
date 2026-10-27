@@ -1,3 +1,44 @@
-data/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+.cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Environments and credentials
+.env
+.venv/
+venv/
+env/
+ENV/
+
+# Dataset exclusions
+dataset/*
+
+# Model checkpoints and weights
+*.pth
+*.pt
+*.ckpt
+models_cache/
+
+# Large training run outputs (keep summaries and figures)
+outputs/runs/
+outputs/smoke_test/
+!outputs/
+!outputs/summaries/
+!outputs/figures/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini
 bin/
 scratch/

@@ -1,0 +1,44 @@
+architecture: "densenet121"
+num_classes: 4
+
+# Pretrained weight sources
+pretrained_sources:
+  imagenet:
+    weights_enum: "IMAGENET1K_V1"
+  radimagenet:
+    hf_repo_id: "Lab-Rasool/RadImageNet"
+    hf_filename: "DenseNet121.pt"
+    local_checkpoint_path: null 
+    backbone_prefix_to_strip: "backbone.0."
+    target_backbone_prefix: "features."
+
+# Freeze-unfreeze strategies 
+strategies:
+  partial_1block:
+    description: "Partial fine-tuning: unfreezing denseblock4, norm5, and classifier"
+    trainable_modules:
+      - "features.denseblock4"
+      - "features.norm5"
+      - "classifier"
+    expected_trainable_params: 2164228
+    freeze_backbone_bn_stats: true
+
+  partial_2block:
+    description: "Partial fine-tuning: unfreezing denseblock3, transition3, denseblock4, norm5, and classifier"
+    trainable_modules:
+      - "features.denseblock3"
+      - "features.transition3"
+      - "features.denseblock4"
+      - "features.norm5"
+      - "classifier"
+    expected_trainable_params: 5528324
+    freeze_backbone_bn_stats: true
+
+  full_finetuning:
+    description: "Full fine-tuning: all features and classifier are trainable"
+    trainable_modules:
+      - "features"
+      - "classifier"
+    expected_trainable_params: 6957956
+    freeze_backbone_bn_stats: false
+

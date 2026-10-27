@@ -1,0 +1,42 @@
+dataset_name: "brisc2025"
+raw_data_dir: "data/raw/BRISC/brisc2025/classification_task"
+brisc_manifest_path: "data/raw/BRISC/brisc2025/manifest.csv"
+split_manifest_path: "data/splits/split_manifest.csv"
+
+class_names:
+  - "glioma"
+  - "meningioma"
+  - "no_tumor"
+  - "pituitary"
+
+class_aliases:
+  glioma: "glioma"
+  meningioma: "meningioma"
+  no_tumor: "no_tumor"
+  notumor: "no_tumor"
+  pituitary: "pituitary"
+
+split:
+  val_ratio: 0.20       # Official BRISC train set (5,000 images) is split 80:20 into train (4,000) and val (1,000).
+  split_seed: 2025          
+  stratified: true
+
+# Preprocessing pipeline 
+preprocessing:
+  input_size: [224, 224]
+  resize_size: 256          
+  crop_mode: "resize_center_crop" 
+  force_rgb: true           
+  normalize_mean: [0.485, 0.456, 0.406]
+  normalize_std: [0.229, 0.224, 0.225]
+
+augmentation:
+  enabled: false            
+  random_horizontal_flip_p: 0.0
+  random_rotation_degrees: 0.0
+
+dataloader:
+  batch_size: 32            
+  num_workers: 2          
+  pin_memory: true
+
